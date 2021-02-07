@@ -1,0 +1,23 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "web", "web", "{441E513B-DFFE-45CC-BE17-B8073424F7B6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Customers.Web", "web\Customers.Web\Customers.Web.csproj", "{185801D3-5EC8-435A-81F9-768859271446}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "database", "database", "{38466AD3-DF80-46A6-A962-8F07BCC318B5}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{185801D3-5EC8-435A-81F9-768859271446}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{185801D3-5EC8-435A-81F9-768859271446}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{185801D3-5EC8-435A-81F9-768859271446}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{185801D3-5EC8-435A-81F9-768859271446}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{185801D3-5EC8-435A-81F9-768859271446} = {441E513B-DFFE-45CC-BE17-B8073424F7B6}
+	EndGlobalSection
+EndGlobal
