@@ -1,20 +1,23 @@
-# This is a basic workflow to help you get started with Actions
+name: .NET
 
-name: CI
-
-# Controls when the action will run. 
 on:
-  # Triggers the workflow on push or pull request events but only for the main branch
   push:
+    branches: [ master ]
+  pull_request:
     branches: [ master ]
 
 jobs:
   build:
+
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v2
-      - name: Setup dotnet
-        uses: actions/setup-dotnet@v1
-        with:
-          dotnet-version: '5.0'
-      - run: dotnet build KubernetesLoadBalancing.sln -c Release
+    - uses: actions/checkout@v2
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 5.0.x
+    - name: Restore dependencies
+      run: dotnet restore KubernetesLoadBalancing.sln
+    - name: Build
+      run: dotnet build KubernetesLoadBalancing.sln -c Release
