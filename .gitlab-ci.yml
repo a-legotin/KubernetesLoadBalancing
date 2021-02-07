@@ -3,14 +3,12 @@ image: mcr.microsoft.com/dotnet/sdk:5.0
 stages:
     - build
 
-variables:
-    DOCKER_HOST: tcp://192.168.10.16:2376
-
 build:
     image: docker:19.03.12
     stage: build
     services:
         - docker:19.03.12-dind
+        - docker info
     before_script:
         - apk add --no-cache docker-compose
     script:
