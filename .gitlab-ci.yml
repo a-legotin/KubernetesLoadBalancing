@@ -9,8 +9,11 @@ build:
     services:
         - docker:19.03.12-dind
     before_script:
-        - docker login -u $CI_JOB_USER -p $CI_JOB_TOKEN $CI_REGISTRY
+        - echo $CI_JOB_USER
+        - echo $CI_JOB_TOKEN
+        - echo $CI_REGISTRY
     script:
+        - docker login -u $CI_JOB_USER -p $CI_JOB_TOKEN $CI_REGISTRY
         - "dotnet build KubernetesLoadBalancing.sln -c Release"
         - docker-compose build
-        - docker push $CI_REGISTRY/alexander/KubernetesLoadBalancing/kldemo-customers-web:latest
+        - docker push $CI_REGISTRY/alexander/kubernetesloadbalancing/kldemo-customers-web:latest
