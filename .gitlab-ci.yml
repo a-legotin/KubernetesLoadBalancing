@@ -18,7 +18,7 @@ build:
     script:
         - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
         - docker-compose build
-        - docker tag $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA
-        - docker tag $CI_REGISTRY_IMAGE:latest
+        - docker tag kldemo-customers-web:latest $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA
+        - docker tag kldemo-customers-web:latest $CI_REGISTRY_IMAGE:latest
         - docker push $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA
         - docker push $CI_REGISTRY_IMAGE:latest
