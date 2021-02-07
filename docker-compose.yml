@@ -1,16 +1,30 @@
 version: '3.4'
 
 services:
-  kldemo-customer-web:
-    image: kldemo-customer-web
+  kldemo-customers-web:
+    image: kldemo-customers-web
     build:
       context: .
       dockerfile: web/Customers.Web/Dockerfile
     restart: on-failure
     networks:
       - main-network
-    ports:
-      - "8080:8080"
+    expose:
+      - "8080"
+  kldemo-nginx:
+      image: nginx:alpine
+      hostname: 'nginx'
+      volumes:
+        - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+        - ./nginx/proxy.conf:/etc/nginx/proxy.conf:ro
+        - ./nginx/logs/:/var/log/nginx/
+      ports:
+        - '80:80'
+      depends_on:
+        - kldemo-customers-web
+      restart: always
+      networks:
+        - main-network
 
 networks:
    main-network:

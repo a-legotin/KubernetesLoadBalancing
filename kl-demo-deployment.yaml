@@ -1,0 +1,116 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kldemo-customers-web-deployment
+  labels:
+    app: kldemo
+spec:
+  selector:
+    matchLabels:
+      app: kldemo-customers-web
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: kldemo-customers-web
+    spec:
+      containers:
+      - name: kldemo-customers-web
+        image: kldemo-customers-web:latest
+        imagePullPolicy: Never #to pull local image
+        ports:
+        - containerPort: 8080
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nginx-conf
+data:
+  proxy.conf: |
+    proxy_redirect          off;
+    proxy_http_version      1.1;
+    proxy_set_header        Upgrade             $http_upgrade;
+    proxy_cache_bypass      $http_upgrade;
+    proxy_set_header        Connection          keep-alive;
+    proxy_set_header        Host $host;
+    proxy_set_header        X-Real-IP           $remote_addr;
+    proxy_set_header        X-Forwarded-For     $proxy_add_x_forwarded_for;
+    proxy_set_header        X-Forwarded-Proto   $scheme;
+    proxy_set_header        X-Forwarded-Host    $server_name;
+    client_max_body_size    10m;
+    client_body_buffer_size 128k;
+    proxy_connect_timeout   90;
+    proxy_send_timeout      90;
+    proxy_read_timeout      90;
+    proxy_buffers           32 4k;
+    
+  nginx.conf: |
+    user nginx;
+
+    worker_processes    auto;
+
+    events { worker_connections 1024; }
+
+    http {
+        include             /etc/nginx/proxy.conf;
+        include             /etc/nginx/mime.types;
+        limit_req_zone      $binary_remote_addr zone=one:10m rate=5r/s;
+        server_tokens       off;
+        sendfile            on;
+        keepalive_timeout   29; # Adjust to the lowest possible value that makes sense for your use case.
+        client_body_timeout 10; client_header_timeout 10; send_timeout 10;
+
+        upstream webapi {
+            server          kldemo-customers-web:8080;
+        }
+
+        server {
+            listen          80;
+            server_name     $hostname;
+
+            location / {
+                proxy_pass  http://webapi;
+                limit_req   zone=one burst=10 nodelay;
+            }
+        }
+    }
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kldemo-nginx-deployment
+  labels:
+    app: kldemo
+spec:
+  selector:
+    matchLabels:
+      app: kldemo-nginx
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: kldemo-nginx
+    spec:
+      containers:
+        - name: nginx
+          image: nginx
+          ports:
+            - containerPort: 80
+          volumeMounts:
+            - name: nginx-conf
+              mountPath: /etc/nginx/nginx.conf
+              subPath: nginx.conf
+              readOnly: true
+            - name: nginx-conf
+              mountPath: /etc/nginx/proxy.conf
+              subPath: proxy.conf
+              readOnly: true
+      volumes:
+        - name: nginx-conf
+          configMap:
+            name: nginx-conf
+            items:
+              - key: nginx.conf
+                path: nginx.conf
+              - key: proxy.conf
+                path: proxy.conf

@@ -1,6 +1,6 @@
 ﻿FROM  mcr.microsoft.com/dotnet/aspnet:5.0.2-alpine3.12 AS base
 WORKDIR /app
-EXPOSE 8080
+
 FROM mcr.microsoft.com/dotnet/sdk:5.0-alpine AS build
 WORKDIR /src
 COPY ["web/Customers.Web/Customers.Web.csproj", "web/Customers.Web/"]

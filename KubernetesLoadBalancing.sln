@@ -9,7 +9,13 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "infrastructure", "infrastructure", "{336B7F20-DE6D-45B7-8354-44C9E481A1E3}"
 ProjectSection(SolutionItems) = preProject
 	docker-compose.yml = docker-compose.yml
+	kl-demo-deployment.yaml = kl-demo-deployment.yaml
+	kl-demo-service.yaml = kl-demo-service.yaml
 EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "console", "console", "{DE4AB92A-5864-4C62-AA75-41761FEBF7FD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Console.InstanceChecker", "console\Console.InstanceChecker\Console.InstanceChecker.csproj", "{623AA46E-F999-4737-B262-73A00CA11356}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,8 +27,13 @@ Global
 		{185801D3-5EC8-435A-81F9-768859271446}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{185801D3-5EC8-435A-81F9-768859271446}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{185801D3-5EC8-435A-81F9-768859271446}.Release|Any CPU.Build.0 = Release|Any CPU
+		{623AA46E-F999-4737-B262-73A00CA11356}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{623AA46E-F999-4737-B262-73A00CA11356}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{623AA46E-F999-4737-B262-73A00CA11356}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{623AA46E-F999-4737-B262-73A00CA11356}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{185801D3-5EC8-435A-81F9-768859271446} = {441E513B-DFFE-45CC-BE17-B8073424F7B6}
+		{623AA46E-F999-4737-B262-73A00CA11356} = {DE4AB92A-5864-4C62-AA75-41761FEBF7FD}
 	EndGlobalSection
 EndGlobal
