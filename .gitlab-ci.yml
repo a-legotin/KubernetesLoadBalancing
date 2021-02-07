@@ -3,6 +3,9 @@ image: mcr.microsoft.com/dotnet/sdk:5.0
 stages:
     - build
 
+variables:
+    DOCKER_DRIVER: overlay
+
 build:
     image: docker:19.03.12
     stage: build
