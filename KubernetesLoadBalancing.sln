@@ -11,6 +11,7 @@ ProjectSection(SolutionItems) = preProject
 	docker-compose.yml = docker-compose.yml
 	kl-demo-deployment.yaml = kl-demo-deployment.yaml
 	kl-demo-service.yaml = kl-demo-service.yaml
+	.gitlab-ci.yml = .gitlab-ci.yml
 EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "console", "console", "{DE4AB92A-5864-4C62-AA75-41761FEBF7FD}"

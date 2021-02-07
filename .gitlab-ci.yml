@@ -5,5 +5,9 @@ stages:
 
 build:
     stage: build
+    before_script:
+        - docker login -u $CI_JOB_USER -p $CI_JOB_TOKEN $CI_REGISTRY
     script:
         - "dotnet build KubernetesLoadBalancing.sln -c Release"
+        - docker-compose build
+        - docker push $CI_REGISTRY/alexander/KubernetesLoadBalancing/kldemo-customers-web:latest
