@@ -5,11 +5,16 @@ export class FetchData extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { forecasts: [], loading: true };
+    this.state = { 
+      forecasts: [], 
+      loading: true,
+      serverInfoLoading: true
+    };
   }
 
   componentDidMount() {
     this.populateWeatherData();
+    this.populateServerInfo();
   }
 
   static renderForecastsTable(forecasts) {
@@ -37,15 +42,26 @@ export class FetchData extends Component {
     );
   }
 
+  static renderServerInfo(serverInfo) {
+    return (
+        <div><p>Address: {serverInfo.address}</p></div>
+    );
+  }
+
   render() {
     let contents = this.state.loading
       ? <p><em>Loading...</em></p>
       : FetchData.renderForecastsTable(this.state.forecasts);
-
+   
+    let serverInfo = this.state.serverInfoLoading
+        ? <p><em>Loading server info...</em></p>
+        : FetchData.renderServerInfo(this.state.serverInfo);
+        
     return (
       <div>
         <h1 id="tabelLabel" >Weather forecast</h1>
         <p>This component demonstrates fetching data from the server.</p>
+        {serverInfo}
         {contents}
       </div>
     );
@@ -55,5 +71,16 @@ export class FetchData extends Component {
     const response = await fetch('weatherforecast');
     const data = await response.json();
     this.setState({ forecasts: data, loading: false });
+  }
+
+  async populateServerInfo() {
+    const response = await fetch('instance/current');
+    const data = await response.json();
+    this.setState(prevState => ({
+      forecasts: prevState.forecasts,
+      loading: prevState.loading,
+      serverInfo: data,
+      serverInfoLoading: false
+    }))
   }
 }

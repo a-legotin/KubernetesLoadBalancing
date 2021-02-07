@@ -1,0 +1,17 @@
+version: '3.4'
+
+services:
+  kldemo-customer-web:
+    image: kldemo-customer-web
+    build:
+      context: .
+      dockerfile: web/Customers.Web/Dockerfile
+    restart: on-failure
+    networks:
+      - main-network
+    ports:
+      - "8080:8080"
+
+networks:
+   main-network:
+     driver: bridge
