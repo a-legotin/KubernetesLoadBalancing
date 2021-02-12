@@ -4,8 +4,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "web", "web", "{441E513B-DFF
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Customers.Web", "web\Customers.Web\Customers.Web.csproj", "{185801D3-5EC8-435A-81F9-768859271446}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "database", "database", "{38466AD3-DF80-46A6-A962-8F07BCC318B5}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "infrastructure", "infrastructure", "{336B7F20-DE6D-45B7-8354-44C9E481A1E3}"
 ProjectSection(SolutionItems) = preProject
 	docker-compose.yml = docker-compose.yml

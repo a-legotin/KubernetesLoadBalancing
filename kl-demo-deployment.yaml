@@ -16,8 +16,8 @@ spec:
     spec:
       containers:
       - name: kldemo-customers-web
-        image: kldemo-customers-web:latest
-        imagePullPolicy: Never #to pull local image
+        image: registry.codegarage.ru/kldemo-customers-web-deployment:latest
+        imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 8080
 ---
@@ -94,6 +94,7 @@ spec:
       containers:
         - name: nginx
           image: nginx
+          imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 80
           volumeMounts:
