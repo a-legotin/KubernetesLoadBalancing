@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: kldemo-customers-web
-        image: registry.codegarage.ru/kldemo-customers-web-deployment:latest
+        image: registry.codegarage.ru/alexander/kubernetesloadbalancing:latest
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 8080
