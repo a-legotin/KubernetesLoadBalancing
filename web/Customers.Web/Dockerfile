@@ -8,6 +8,7 @@ COPY ["web/Customers.Web/Customers.Web.csproj", "web/Customers.Web/"]
 # Fetch and install Node 14. Make sure to include the --yes parameter 
 # to automatically accept prompts during install, or it'll fail.
 RUN apk add --update nodejs-current npm
+
 RUN npm install -g npm
 RUN npm install
 
