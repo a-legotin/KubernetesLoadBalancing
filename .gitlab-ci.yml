@@ -6,7 +6,7 @@ stages:
 
 variables:
     DOCKER_TLS_CERTDIR: ""
-    DOCKER_DRIVER: overlay2
+    DOCKER_DRIVER: overlay
     DOCKER_HOST: tcp://localhost:2375
 
 services:
