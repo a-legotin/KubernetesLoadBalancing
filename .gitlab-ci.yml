@@ -33,6 +33,8 @@ deploy:
         name: staging
     script:
         - echo "Deploy to staging environment"
-        - kubectl create secret docker-registry regcred --docker-server="$CI_REGISTRY" --docker-username="$CI_DEPLOY_USER" --docker-password="$CI_DEPLOY_PASSWORD" --docker-email="$GITLAB_USER_EMAIL" 
+        - echo $CI_REGISTRY
+        - echo $CI_DEPLOY_USER
+        - kubectl create secret docker-registry regcred --docker-server=$CI_REGISTRY --docker-username=$CI_DEPLOY_USER --docker-password=$CI_DEPLOY_PASSWORD --docker-email=$GITLAB_USER_EMAIL
         - kubectl apply -f kl-demo-deployment.yaml -f kl-demo-service.yaml
 
