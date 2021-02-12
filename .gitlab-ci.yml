@@ -38,3 +38,4 @@ deploy:
         - echo $CI_REGISTRY_PASSWORD
         - kubectl create secret docker-registry regcred --docker-server=$CI_REGISTRY --docker-username=$CI_REGISTRY_USER --docker-password=$CI_REGISTRY_PASSWORD
         - kubectl apply -f kl-demo-deployment.yaml -f kl-demo-service.yaml
+
