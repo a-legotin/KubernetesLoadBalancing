@@ -65,7 +65,7 @@ data:
         }
 
         server {
-            listen          8666;
+            listen          80;
             server_name     $hostname;
 
             location / {
@@ -96,7 +96,7 @@ spec:
           image: nginx
           imagePullPolicy: IfNotPresent
           ports:
-            - containerPort: 8666
+            - containerPort: 80
           volumeMounts:
             - name: nginx-conf
               mountPath: /etc/nginx/nginx.conf

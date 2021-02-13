@@ -5,13 +5,8 @@ metadata:
   labels:
     app: kldemo
 spec:
-  rules:
-    - http:
-        paths:
-          - path: /kl-demo
-            pathType: Prefix
-            backend:
-              service:
-                name: kldemo-nginx
-                port:
-                  number: 80
+  defaultBackend:
+    service:
+      name: kldemo-nginx
+      port:
+        number: 8081
