@@ -5,7 +5,7 @@ metadata:
   labels:
     app: kdemo
 spec:
-  type: ClusterIP
+  type: NodePort
   ports:
     - port: 8666
   selector:

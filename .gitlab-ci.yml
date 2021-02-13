@@ -33,5 +33,5 @@ deploy:
         name: staging
     script:
         - echo "Deploy to staging environment. You must supply credentials already!"
-        - kubectl apply -f kl-demo-deployment.yaml -f kl-demo-service.yaml
+        - kubectl apply -f kl-demo-deployment.yaml -f kl-demo-service.yaml -f kl-demo-ingress.yaml
 
