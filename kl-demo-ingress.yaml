@@ -5,8 +5,10 @@ metadata:
   labels:
     app: kldemo
 spec:
-  defaultBackend:
-    service:
-      name: kldemo-nginx
-      port:
-        number: 8081
+  rules:
+    - http:
+        paths:
+          - path: /kl-demo
+            backend:
+              serviceName: kldemo-nginx
+              servicePort: 8081
