@@ -2,9 +2,16 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: kldemo-nginx-ingress
+  labels:
+    app: kldemo
 spec:
-  defaultBackend:
-    service:
-      name: kldemo-nginx
-      port:
-        number: 80
+  rules:
+    - http:
+        paths:
+          - path: /kl-demo
+            pathType: Prefix
+            backend:
+              service:
+                name: kldemo-nginx
+                port:
+                  number: 80

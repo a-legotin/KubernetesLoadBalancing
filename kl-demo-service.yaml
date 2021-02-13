@@ -3,7 +3,7 @@ kind: Service
 metadata:
   name: kldemo-nginx
   labels:
-    app: kdemo
+    app: kldemo
 spec:
   type: NodePort
   ports:
@@ -16,7 +16,7 @@ kind: Service
 metadata:
   name: kldemo-customers-web
   labels:
-    app: kdemo
+    app: kldemo
 spec:
   type: ClusterIP
   selector:
