@@ -5,10 +5,9 @@ metadata:
   labels:
     app: kdemo
 spec:
-  type: LoadBalancer
+  type: ClusterIP
   ports:
     - port: 8666
-      targetPort: 8666
   selector:
     app: kldemo-nginx
 ---
