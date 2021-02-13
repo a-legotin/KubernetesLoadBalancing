@@ -4,11 +4,16 @@ metadata:
   name: kldemo-nginx-ingress
   labels:
     app: kldemo
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
   rules:
     - http:
         paths:
           - path: /kl-demo
+            pathType: Prefix
             backend:
-              serviceName: kldemo-nginx
-              servicePort: 8081
+              service:
+                name: kldemo-nginx
+                port:
+                  number: 8081
