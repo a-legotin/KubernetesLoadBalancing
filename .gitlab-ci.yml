@@ -5,8 +5,7 @@ stages:
     - deploy
 
 variables:
-    DOCKER_TLS_CERTDIR: "/certs"
-    DOCKER_HOST: tcp://localhost:2376/
+    DOCKER_TLS_CERTDIR: ""
     
 services:
     - docker:19.03.12-dind
