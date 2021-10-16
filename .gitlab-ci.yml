@@ -32,7 +32,9 @@ deploy:
         name: staging
     script:
         - kubectl delete secret docker-registry registry-credentials --ignore-not-found
-        - kubectl create secret docker-registry registry-credentials --docker-server=$CI_REGISTRY --docker-username=$CI_DEPLOY_USER --docker-password=$CI_DEPLOY_PASSWORD --docker-email=mrproz@yandex.ru
+        - echo $CI_REGISTRY_USER
+        - echo $CI_REGISTRY_PASSWORD
+        - kubectl create secret docker-registry registry-credentials --docker-server=$CI_REGISTRY --docker-username=$CI_REGISTRY_USER --docker-password=$CI_REGISTRY_PASSWORD --docker-email=mrproz@yandex.ru
         - echo "Deploy to staging environment. You must supply credentials already!"
         - kubectl apply -f kl-demo-deployment.yaml -f kl-demo-service.yaml -f kl-demo-ingress.yaml
 
