@@ -37,7 +37,7 @@ deploy:
         - echo $CI_REGISTRY
         - echo $CI_DEPLOY_USER
         - echo $CI_DEPLOY_PASSWORD
-        - kubectl create secret docker-registry registry-credentials --docker-server=$CI_REGISTRY --docker-username=gitlab+deploy-token-3--docker-password=XsynJR4RKyReyb9-sVfd --docker-email=$GITLAB_USER_EMAIL
+        - kubectl create secret docker-registry registry-credentials --docker-server=$CI_REGISTRY --docker-username=gitlab+deploy-token-3 --docker-password=XsynJR4RKyReyb9-sVfd --docker-email=$GITLAB_USER_EMAIL
         - echo "Deploy to staging environment. You must supply credentials already!"
         - kubectl apply -f kl-demo-deployment.yaml -f kl-demo-service.yaml -f kl-demo-ingress.yaml
 
