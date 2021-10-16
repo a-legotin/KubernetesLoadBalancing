@@ -17,7 +17,7 @@ spec:
       containers:
       - name: kldemo-customers-web
         image: registry.codegarage.ru/codegarage/kubernetesloadbalancing:latest
-        imagePullPolicy: IfNotPresent
+        imagePullPolicy: Always
         ports:
         - containerPort: 8080
       imagePullSecrets:
@@ -96,7 +96,7 @@ spec:
       containers:
         - name: nginx
           image: nginx
-          imagePullPolicy: IfNotPresent
+          imagePullPolicy: Always
           ports:
             - containerPort: 80
           volumeMounts:

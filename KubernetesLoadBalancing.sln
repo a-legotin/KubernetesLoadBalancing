@@ -17,6 +17,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "console", "console", "{DE4A
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Console.InstanceChecker", "console\Console.InstanceChecker\Console.InstanceChecker.csproj", "{623AA46E-F999-4737-B262-73A00CA11356}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "nginx", "nginx", "{391D7A40-41A9-4B4F-A0CF-2206887B6CA4}"
+ProjectSection(SolutionItems) = preProject
+	nginx\nginx.conf = nginx\nginx.conf
+	nginx\proxy.conf = nginx\proxy.conf
+EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
