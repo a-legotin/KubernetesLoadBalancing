@@ -1,13 +1,13 @@
-﻿FROM  mcr.microsoft.com/dotnet/aspnet:5.0.2-alpine3.12 AS base
+﻿FROM  mcr.microsoft.com/dotnet/aspnet:5.0-bullseye-slim AS base
 WORKDIR /app
 
-FROM mcr.microsoft.com/dotnet/sdk:5.0-alpine AS build
+FROM mcr.microsoft.com/dotnet/sdk:5.0-bullseye-slim AS build
 WORKDIR /src
 COPY ["web/Customers.Web/Customers.Web.csproj", "web/Customers.Web/"]
 
-RUN apk add --update nodejs nodejs-npm
+RUN curl -fsSL https://deb.nodesource.com/setup_16.x | bash -
+RUN apt-get install -y nodejs
 
-RUN npm install -g npm
 RUN npm install -g npm@8.1.0
 
 RUN dotnet restore "web/Customers.Web/Customers.Web.csproj"
