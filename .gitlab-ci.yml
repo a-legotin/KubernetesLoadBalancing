@@ -28,10 +28,13 @@ build:
 deploy:
     stage: deploy
     image: bitnami/kubectl:latest
+    variables:
+      CI_DEBUG_TRACE: "true"
     environment:
         name: staging
     script:
         - kubectl delete secret docker-registry registry-credentials --ignore-not-found
+        - echo $CI_REGISTRY
         - echo $CI_DEPLOY_USER
         - echo $CI_DEPLOY_PASSWORD
         - kubectl create secret docker-registry registry-credentials --docker-server=$CI_REGISTRY --docker-username=$CI_DEPLOY_USER--docker-password=$CI_DEPLOY_PASSWORD --docker-email=mrproz@yandex.ru
