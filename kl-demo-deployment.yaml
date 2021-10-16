@@ -8,6 +8,8 @@ spec:
   selector:
     matchLabels:
       app: kldemo-customers-web
+    imagePullSecrets:
+      - name: gitlab
   replicas: 1
   template:
     metadata:
