@@ -8,8 +8,6 @@ spec:
   selector:
     matchLabels:
       app: kldemo-customers-web
-    imagePullSecrets:
-      - name: gitlab
   replicas: 1
   template:
     metadata:
@@ -18,10 +16,12 @@ spec:
     spec:
       containers:
       - name: kldemo-customers-web
-        image: registry.codegarage.ru/alexander/kubernetesloadbalancing:latest
+        image: registry.codegarage.ru/codegarage/kubernetesloadbalancing:latest
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 8080
+      imagePullSecrets:
+        - name: gitlab
 ---
 apiVersion: v1
 kind: ConfigMap
