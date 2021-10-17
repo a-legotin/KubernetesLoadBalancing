@@ -6,10 +6,10 @@ metadata:
     nginx.ingress.kubernetes.io/rewrite-target: /$1
 spec:
   rules:
-    - host: staging.codegarage.ru
+    - host: load-balancing.staging.codegarage.ru
       http:
         paths:
-          - path: /load-balancing/(.*)
+          - path: /(.*)
             pathType: Prefix
             backend:
               service:
