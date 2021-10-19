@@ -12,5 +12,8 @@ namespace Console.InstanceChecker
         
         [Option('d', "delay", Required = false, HelpText = "Delay in milliseconds")]
         public int DelayMilliseconds { get; set; }
+        
+        [Option('p', "parallel", Required = false, HelpText = "Process requests in parallel")]
+        public bool IsParallel { get; set; }
     }
 }
