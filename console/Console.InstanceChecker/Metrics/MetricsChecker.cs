@@ -64,7 +64,7 @@ namespace Console.InstanceChecker.Metrics
 
                     _metrics[timer.Tags.Server] = new ServerRate
                     {
-                        ServerName = context.ContextName,
+                        ServerName = timer.Tags.Server,
                         Rate = timer.Rate
                     };
                 }
