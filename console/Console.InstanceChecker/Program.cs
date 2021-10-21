@@ -1,98 +1,92 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Net.Http;
-using System.Text.Json.Serialization;
+using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 using CommandLine;
+using Console.InstanceChecker.Instance;
+using Console.InstanceChecker.Metrics;
 
 namespace Console.InstanceChecker
 {
-    class Program
+    internal class Program
     {
-        static async Task Main(string[] args)
-        {
-            await Parser.Default
-                .ParseArguments<Options>(args)
-                .WithParsedAsync(async options => await CheckInstance(options));
-        }
+        private static MetricsChecker _metricsChecker;
+        private static Instance.InstanceChecker _instanceChecker;
+        private static readonly CancellationTokenSource _cancellationToken = new CancellationTokenSource();
+        private static Options _options;
+        private static int _errors;
+        private static int _succeed;
 
-        private static async Task CheckInstance(Options options)
+        private static async Task Main(string[] args)
         {
-            var success = 0;
-            var error = 0;
-            using (var client = new HttpClient())
-            {
-                async Task PerformRequestsAndCalculateStat()
-                {
-                    var result = await DoRequest(options, client);
-                    if (result)
-                        Interlocked.Increment(ref success);
-                    else
-                        Interlocked.Increment(ref error);
-                }
-
-                async Task PerformBatch(IEnumerable<int> range)
-                {
-                    foreach (var _ in range)
-                    {
-                        await PerformRequestsAndCalculateStat();
-                    } 
-                }
-                if (!options.IsParallel)
-                {
-                    await PerformBatch(Enumerable.Range(0, options.Number));
-                }
-                else
-                {
-                    var tasks = new List<Task>();
-                    var groups = Enumerable.Range(0, options.Number)
-                        .GroupBy(num => num % Environment.ProcessorCount);
-                    foreach (var group in groups)
-                    {
-                        tasks.Add(Task.Run(async() => await PerformBatch(group)));
-                    }
-                    await Task.WhenAll(tasks);
-                }
-                
-            }
-            System.Console.WriteLine($"Succeed: {success}, errored {error}");
-        }
-
-        private readonly static object _locker = new object();
-        private static async Task<bool> DoRequest(Options options,
-            HttpClient client)
-        {
+            var sw = new Stopwatch();
             try
             {
-                if (options.DelayMilliseconds > 0)
-                    await Task.Delay(options.DelayMilliseconds);
+                await Parser.Default
+                    .ParseArguments<Options>(args)
+                    .WithParsedAsync(async options =>
+                    {
+                        _options = options;
+                        _metricsChecker = new MetricsChecker(_cancellationToken.Token, options.Host,
+                            TimeSpan.FromSeconds(10),
+                            PrintServerRates);
+                        _instanceChecker = new Instance.InstanceChecker(_cancellationToken.Token, options.Number,
+                            options.Host, TimeSpan.FromMilliseconds(options.DelayMilliseconds), options.MaxThreads,
+                            OnError, OnInstanceInfoReceived);
 
-                var response = await client.GetAsync(new Uri($"{options.Host.TrimEnd('/')}/instance/current"));
-                if (!response.IsSuccessStatusCode)
-                {
-                    System.Console.WriteLine($"Unable to get instance info: {response.StatusCode}");
-                    return false;
-                }
-
-                var json = await response.Content.ReadAsStringAsync();
-                var info = System.Text.Json.JsonSerializer.Deserialize<InstanceInfo>(json);
-                System.Console.WriteLine(info?.Address);
-                return true;
+                        System.Console.WriteLine("Started, waiting for events");
+                        sw.Restart();
+                        await Task.WhenAll(StartInstanceThread(), StartMetricsThread());
+                        sw.Stop();
+                        _cancellationToken.Cancel();
+                    });
             }
-            catch (Exception e)
+            finally
             {
-                System.Console.WriteLine($"Unable to get instance info: {e.Message}");
-                return false;
+                System.Console.WriteLine(
+                    $"Done, elapsed {sw.ElapsedMilliseconds} ms. Succeed: {_succeed}, Errors: {_errors}.");
             }
         }
 
-        private class InstanceInfo
+        private static void OnInstanceInfoReceived(string message, InstanceInfo instanceInfo)
         {
-            [JsonPropertyName("address")]
-            public string Address { get; set; }
+            Interlocked.Increment(ref _succeed);
+            if (_options.ShouldPrintInstanceInfo)
+                System.Console.WriteLine($"{message}:\t{instanceInfo.Address}");
+        }
+
+        private static void OnError(string error)
+        {
+            Interlocked.Increment(ref _errors);
+            System.Console.WriteLine(error);
+        }
+
+        private static Task StartMetricsThread()
+        {
+            return Task.Run(async () =>
+            {
+                if (!_options.ShouldPrintServerMetrics)
+                    return;
+                await _metricsChecker.Start();
+            }, _cancellationToken.Token);
+        }
+
+        private static Task StartInstanceThread()
+        {
+            return Task.Run(async () => await _instanceChecker.Start(), _cancellationToken.Token);
+        }
+
+
+        private static void PrintServerRates(ServerRate[] rates)
+        {
+            if (!_options.ShouldPrintServerMetrics)
+                return;
+            System.Console.WriteLine("------- Server rates --------");
+
+            foreach (var rate in rates)
+                System.Console.WriteLine($"Server {rate.ServerName}, {rate.Rate.OneMinuteRate} requests/minute");
+
+            System.Console.WriteLine("------- End of server rates --------");
         }
     }
 }

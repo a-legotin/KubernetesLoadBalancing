@@ -15,11 +15,11 @@ spec:
         app: kldemo-customers-web
     spec:
       containers:
-      - name: kldemo-customers-web
-        image: registry.codegarage.ru/codegarage/kubernetesloadbalancing:latest
-        imagePullPolicy: Always
-        ports:
-        - containerPort: 8080
+        - name: kldemo-customers-web
+          image: registry.codegarage.ru/codegarage/kubernetesloadbalancing:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
       imagePullSecrets:
         - name: registry-credentials
 ---
@@ -45,7 +45,7 @@ data:
     proxy_send_timeout      90;
     proxy_read_timeout      90;
     proxy_buffers           32 4k;
-    
+
   nginx.conf: |
     user nginx;
 

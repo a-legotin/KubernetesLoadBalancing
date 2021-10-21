@@ -1,0 +1,17 @@
+<?xml version="1.0" ?>
+<svg id="Icons" style="enable-background:new 0 0 32 32;" version="1.1" viewBox="0 0 32 32" xml:space="preserve"
+     xmlns="http://www.w3.org/2000/svg"><style type="text/css">
+	.st0{fill:none;stroke:#42f57e;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;}
+	.st1{fill:none;stroke:#42f57e;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
+	.st2{fill:none;stroke:#42f57e;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:5.2066,0;}
+</style>
+    <ellipse class="st0" cx="16" cy="17.5" rx="10" ry="10.5"/>
+    <path class="st0" d="M11,8.4C11.3,5.9,13.4,4,16,4c2.6,0,4.7,1.9,5,4.4"/>
+    <line class="st0" x1="2" x2="6" y1="17" y2="17"/>
+    <line class="st0" x1="26" x2="30" y1="17" y2="17"/>
+    <line class="st0" x1="5" x2="8.1" y1="8" y2="11"/>
+    <line class="st0" x1="27.1" x2="24" y1="8" y2="11"/>
+    <path class="st0" d="M16,7v7.1c0,4.6-2.4,8.9-6.3,11.5"/>
+    <path class="st0" d="M16,7v7.1c0,4.6,2.4,8.9,6.3,11.5"/>
+    <line class="st0" x1="5" x2="7.7" y1="26" y2="23.4"/>
+    <line class="st0" x1="27.1" x2="24.3" y1="26" y2="23.3"/></svg>

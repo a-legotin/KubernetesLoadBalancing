@@ -9,11 +9,17 @@ namespace Console.InstanceChecker
 
         [Option('h', "host", Required = false, HelpText = "Host to check")]
         public string Host { get; set; }
-        
+
         [Option('d', "delay", Required = false, HelpText = "Delay in milliseconds")]
         public int DelayMilliseconds { get; set; }
-        
-        [Option('p', "parallel", Required = false, HelpText = "Process requests in parallel")]
-        public bool IsParallel { get; set; }
+
+        [Option('t', "threads", Required = false, HelpText = "Max threads")]
+        public int MaxThreads { get; set; }
+
+        [Option('i', "print-instance", Required = false, HelpText = "Print instance info")]
+        public bool ShouldPrintInstanceInfo { get; set; }
+
+        [Option('m', "print-metrics", Required = false, HelpText = "Print server metrics")]
+        public bool ShouldPrintServerMetrics { get; set; }
     }
 }
