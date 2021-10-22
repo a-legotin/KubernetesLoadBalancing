@@ -28,7 +28,7 @@ namespace Console.InstanceChecker
                     {
                         _options = options;
                         _metricsChecker = new MetricsChecker(_cancellationToken.Token, options.Host,
-                            TimeSpan.FromSeconds(10),
+                            TimeSpan.FromSeconds(5),
                             PrintServerRates);
                         _instanceChecker = new Instance.InstanceChecker(_cancellationToken.Token, options.Number,
                             options.Host, TimeSpan.FromMilliseconds(options.DelayMilliseconds), options.MaxThreads,
@@ -86,7 +86,8 @@ namespace Console.InstanceChecker
             foreach (var rate in rates)
                 System.Console.WriteLine($"Server {rate.ServerName}, {rate.Rate.OneMinuteRate} requests/minute");
 
-            System.Console.WriteLine("------- End of server rates --------");
+            System.Console.WriteLine("-----------------------------");
+            System.Console.WriteLine("");
         }
     }
 }

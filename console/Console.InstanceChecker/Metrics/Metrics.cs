@@ -10,4 +10,6 @@ namespace Console.InstanceChecker.Metrics
 
         [JsonPropertyName("timestamp")] public DateTime Timestamp { get; set; }
     }
+    
+    
 }

@@ -14,6 +14,8 @@ namespace Console.InstanceChecker.Metrics
         private readonly CancellationToken _cancellationToken;
         private readonly TimeSpan _delay;
         private readonly ConcurrentDictionary<string, ServerRate> _metrics;
+        private ConcurrentBag<string> _latestMetrics = new ConcurrentBag<string>();
+        private readonly int _minMetricsToClean = 50;
         private readonly System.Timers.Timer _metricsTimer;
 
         public readonly Action<ServerRate[]> OnMetricsReceived;
@@ -28,18 +30,38 @@ namespace Console.InstanceChecker.Metrics
             _metrics = new ConcurrentDictionary<string, ServerRate>();
             _metricsTimer = new System.Timers.Timer();
             _metricsTimer.Interval = _delay.TotalMilliseconds;
-            _metricsTimer.Elapsed += (sender, args) => OnMetricsReceived(_metrics.Values.ToArray());
+            _metricsTimer.Elapsed += (sender, args) =>
+            {
+                if(_cancellationToken.IsCancellationRequested)
+                    _metricsTimer.Stop();
+                var uniqueMetrics = _latestMetrics.GroupBy(s => s)
+                    .SelectMany(s => s)
+                    .ToArray();
+
+                if (_latestMetrics.Count > _minMetricsToClean)
+                {
+                    foreach (var metric in _metrics.Keys.ToArray())
+                    {
+                        if (!uniqueMetrics.Contains(metric))
+                            _metrics.TryRemove(metric, out _);
+                    }
+                    _latestMetrics.Clear();
+                }
+                
+                OnMetricsReceived(_metrics.Values.ToArray());
+            };
         }
 
         public async Task Start()
         {
             using var client = new HttpClient();
             _metricsTimer.Start();
-            try
-            {
+            
                 while (!_cancellationToken.IsCancellationRequested)
                 {
-                    await Task.Delay(TimeSpan.FromSeconds(1));
+                    try
+                    {
+                    await Task.Delay(TimeSpan.FromMilliseconds(250), _cancellationToken);
 
                     var response =
                         await client.GetAsync(new Uri($"{_baseUrl.TrimEnd('/')}/metrics"), _cancellationToken);
@@ -67,12 +89,14 @@ namespace Console.InstanceChecker.Metrics
                         ServerName = timer.Tags.Server,
                         Rate = timer.Rate
                     };
+                    _latestMetrics.Add(timer.Tags.Server);
+                    }
+                    catch (Exception e)
+                    {
+                        System.Console.WriteLine(e);
+                    }
                 }
-            }
-            catch (Exception e)
-            {
-                System.Console.WriteLine(e);
-            }
+           
 
             _metricsTimer.Stop();
         }

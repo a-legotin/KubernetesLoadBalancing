@@ -47,7 +47,6 @@ namespace Console.InstanceChecker.Instance
         private async Task PerformRequest()
         {
             using var client = new HttpClient();
-            client.Timeout = TimeSpan.FromSeconds(1);
             while (!_cancellationToken.IsCancellationRequested && !_requestsStack.IsEmpty)
                 try
                 {

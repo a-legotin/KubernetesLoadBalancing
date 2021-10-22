@@ -8,6 +8,8 @@ services:
       network: host
       dockerfile: web/Weather.Web/Dockerfile
     restart: on-failure
+    deploy:
+      replicas: 1
     networks:
       - main-network
     expose:
