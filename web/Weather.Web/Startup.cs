@@ -26,7 +26,7 @@ namespace Customers.Web
                 .Build();
 
             services.AddMetrics(metrics);
-
+            services.AddHealthChecks();
             services.AddMetricsTrackingMiddleware();
 
             // In production, the React files will be served from this directory
@@ -62,6 +62,7 @@ namespace Customers.Web
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapHealthChecks("/ready");
                 endpoints.MapControllerRoute(
                     "default",
                     "{controller}/{action=Index}/{id?}");
