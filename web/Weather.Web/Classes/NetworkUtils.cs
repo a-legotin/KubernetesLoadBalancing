@@ -3,7 +3,7 @@ using System.Net;
 using System.Net.NetworkInformation;
 using System.Net.Sockets;
 
-namespace Customers.Web.Classes
+namespace Weather.Web.Classes
 {
     internal static class NetworkUtils
     {

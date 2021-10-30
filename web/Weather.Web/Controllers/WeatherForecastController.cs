@@ -4,7 +4,7 @@ using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
-namespace Customers.Web.Controllers
+namespace Weather.Web.Controllers
 {
     [ApiController]
     [Route("[controller]")]

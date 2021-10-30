@@ -1,8 +1,8 @@
-﻿using Customers.Web.Classes;
+﻿using Weather.Web.Classes;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
-namespace Customers.Web.Controllers
+namespace Weather.Web.Controllers
 {
     [ApiController]
     [Route("instance/current")]

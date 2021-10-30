@@ -1,6 +1,6 @@
 {
-  "short_name": "Customers.Web",
-  "name": "Customers.Web",
+  "short_name": "Weather.Web",
+  "name": "Weather.Web",
   "icons": [
     {
       "src": "favicon.ico",

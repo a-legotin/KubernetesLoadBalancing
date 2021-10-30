@@ -1,9 +1,9 @@
 using App.Metrics.AspNetCore;
-using Customers.Web.Classes;
+using Weather.Web.Classes;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 
-namespace Customers.Web
+namespace Weather.Web
 {
     public class Program
     {

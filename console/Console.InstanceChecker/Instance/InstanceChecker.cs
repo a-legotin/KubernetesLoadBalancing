@@ -3,17 +3,11 @@ using System.Collections.Concurrent;
 using System.Linq;
 using System.Net.Http;
 using System.Text.Json;
-using System.Text.Json.Serialization;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace Console.InstanceChecker.Instance
 {
-    public class InstanceInfo
-    {
-        [JsonPropertyName("address")] public string Address { get; set; }
-    }
-
     public class InstanceChecker
     {
         private readonly string _baseUrl;
