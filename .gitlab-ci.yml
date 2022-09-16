@@ -12,6 +12,8 @@ services:
   - docker:18.09.7-dind
 build:
   stage: build
+  tags:
+    - k8s
   image: docker:stable
   before_script:
     - apk add --no-cache docker-compose
@@ -27,6 +29,8 @@ build:
     - docker push $CI_REGISTRY_IMAGE:latest
 deploy:
   stage: deploy
+  tags:
+    - k8s
   image: bitnami/kubectl:latest
   environment:
     name: staging
