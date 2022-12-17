@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: kldemo-customers-web-deployment
+  namespace: ezlab-load-balancing-demo
   labels:
     app: kldemo
 spec:
@@ -16,7 +17,7 @@ spec:
     spec:
       containers:
         - name: kldemo-customers-web
-          image: registry.codegarage.ru/codegarage/kubernetesloadbalancing:latest
+          image: registry.ezlab.ru/ezlab/kubernetesloadbalancing:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 8080
@@ -27,6 +28,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: nginx-conf
+  namespace: ezlab-load-balancing-demo
 data:
   proxy.conf: |
     proxy_redirect          off;
@@ -71,6 +73,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: kldemo-nginx-deployment
+  namespace: ezlab-load-balancing-demo
   labels:
     app: kldemo
 spec:

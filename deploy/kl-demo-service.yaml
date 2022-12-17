@@ -2,10 +2,11 @@ apiVersion: v1
 kind: Service
 metadata:
   name: kldemo-nginx
+  namespace: ezlab-load-balancing-demo
   labels:
     app: kldemo
 spec:
-  type: NodePort
+  type: ClusterIP
   ports:
     - name: http
       protocol: TCP
@@ -17,6 +18,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: kldemo-customers-web
+  namespace: ezlab-load-balancing-demo
   labels:
     app: kldemo
 spec:

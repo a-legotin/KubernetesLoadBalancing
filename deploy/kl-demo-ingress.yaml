@@ -1,0 +1,22 @@
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: ezlab-load-balancing-demo-ingress
+  namespace: ezlab-load-balancing-demo
+  annotations: 
+    kubernetes.io/ingress.class: traefik-external
+spec:
+  entryPoints:
+    - web
+  routes:
+    - match: Host(`lb.staging.ezlab.ru`)
+      kind: Rule
+      services:
+        - name: kldemo-nginx
+          port: 80
+    - match: Host(`lb.staging.box.ezlab.ru`)
+      kind: Rule
+      services:
+        - name: kldemo-nginx
+          port: 80
