@@ -39,7 +39,7 @@ export class FetchData extends Component {
 
     static renderServerInfo(serverInfo) {
         return (
-            <div><p>Address: {serverInfo.address}</p></div>
+            <div><p>API server address: {serverInfo.address}</p></div>
         );
     }
 

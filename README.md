@@ -23,12 +23,12 @@ In the repo images pulled from private image repository, in order to start chang
 
 `kl-demo-deployment.yaml`
 
-`image: registry.codegarage.ru/alexander/kubernetesloadbalancing:latest`
+`image: registry.ezlab.ru/ezlab/kubernetesloadbalancing:latest`
 
 Now apply kubernetes configuration
 
 `kubectl apply -f kl-demo-deployment.yaml -f kl-demo-service.yaml -f kl-demo-ingress.yaml`
 
-Make sure you have Ingress available or skip it's configuration. In this case service will be avialble on default node port.
+Make sure you have Ingress available or skip it's configuration. In this case service will be available on default node port.
 
 `kubectl apply -f kl-demo-deployment.yaml -f kl-demo-service.yaml -f`
