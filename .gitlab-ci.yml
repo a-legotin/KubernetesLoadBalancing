@@ -34,7 +34,7 @@ deploy:
         name: staging
   script:
     - kubectl config get-contexts
-    - kubectl config use-context ezlab/kubernetes-agent:galaxy
+    - kubectl config use-context ezlab/kubernetes-agent:leo
     - kubectl apply -f deploy/kl-demo-service-namespace.yaml
     - kubectl delete secret docker-registry registry-credentials --ignore-not-found --namespace=ezlab-load-balancing-demo
     - kubectl create secret docker-registry registry-credentials --docker-server=$CI_REGISTRY --docker-username=$EZLAB_DEPLOY_USER --docker-password=$EZLAB_DEPLOY_PWD --namespace=ezlab-load-balancing-demo
