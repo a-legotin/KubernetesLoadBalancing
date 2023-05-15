@@ -10,7 +10,7 @@ spec:
   entryPoints:
     - web
   routes:
-    - match: Host(`staging.ezlab.ru/lb`)
+    - match: Host(`lb.ezlab.ru`)
       kind: Rule
       services:
         - name: kldemo-nginx

@@ -40,3 +40,4 @@ deploy:
     - kubectl create secret docker-registry registry-credentials --docker-server=$CI_REGISTRY --docker-username=$EZLAB_DEPLOY_USER --docker-password=$EZLAB_DEPLOY_PWD --namespace=ezlab-load-balancing-demo
     - kubectl apply -f deploy
     - kubectl rollout restart deployment kldemo-customers-web-deployment --namespace=ezlab-load-balancing-demo
+    - kubectl rollout restart deployment kldemo-nginx-deployment --namespace=ezlab-load-balancing-demo
