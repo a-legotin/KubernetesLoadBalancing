@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 
 export class FetchData extends Component {
     static displayName = FetchData.name;
@@ -16,22 +16,22 @@ export class FetchData extends Component {
         return (
             <table className='table table-striped' aria-labelledby="tabelLabel">
                 <thead>
-                <tr>
-                    <th>Date</th>
-                    <th>Temp. (C)</th>
-                    <th>Temp. (F)</th>
-                    <th>Summary</th>
-                </tr>
+                    <tr>
+                        <th>Date</th>
+                        <th>Temp. (C)</th>
+                        <th>Temp. (F)</th>
+                        <th>Summary</th>
+                    </tr>
                 </thead>
                 <tbody>
-                {forecasts.map(forecast =>
-                    <tr key={forecast.date}>
-                        <td>{forecast.date}</td>
-                        <td>{forecast.temperatureC}</td>
-                        <td>{forecast.temperatureF}</td>
-                        <td>{forecast.summary}</td>
-                    </tr>
-                )}
+                    {forecasts.map(forecast =>
+                        <tr key={forecast.date}>
+                            <td>{forecast.date}</td>
+                            <td>{forecast.temperatureC}</td>
+                            <td>{forecast.temperatureF}</td>
+                            <td>{forecast.summary}</td>
+                        </tr>
+                    )}
                 </tbody>
             </table>
         );
@@ -68,19 +68,30 @@ export class FetchData extends Component {
     }
 
     async populateWeatherData() {
-        const response = await fetch('weatherforecast');
+        const response = await fetch('api/weatherforecast');
         const data = await response.json();
-        this.setState({forecasts: data, loading: false});
+        this.setState({ forecasts: data, loading: false });
     }
 
     async populateServerInfo() {
-        const response = await fetch('instance/current');
-        const data = await response.json();
-        this.setState(prevState => ({
-            forecasts: prevState.forecasts,
-            loading: prevState.loading,
-            serverInfo: data,
-            serverInfoLoading: false
-        }))
+        try {
+            const response = await fetch('api/instance/current');
+            const data = await response.json();
+            this.setState(prevState => ({
+                forecasts: prevState.forecasts,
+                loading: prevState.loading,
+                serverInfo: data,
+                serverInfoLoading: false
+            }));
+        }
+        catch (e) {
+            console.log(e);
+            this.setState(prevState => ({
+                forecasts: prevState.forecasts,
+                loading: prevState.loading,
+                serverInfo: {address: "unavailabe"},
+                serverInfoLoading: false
+            }));
+        }
     }
 }

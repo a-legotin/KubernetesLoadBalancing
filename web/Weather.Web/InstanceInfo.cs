@@ -2,6 +2,6 @@
 {
     public class InstanceInfo
     {
-        public string Address { get; set; }
+        public string? Address { get; set; }
     }
 }

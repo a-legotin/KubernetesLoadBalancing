@@ -7,14 +7,14 @@ namespace Weather.Web.Classes
 {
     internal static class NetworkUtils
     {
-        public static IPAddress GetLocalIPAddress()
+        public static IPAddress? GetLocalIPAddress()
         {
             if (!NetworkInterface.GetIsNetworkAvailable()) return null;
 
             var host = Dns.GetHostEntry(Dns.GetHostName());
 
-            return host
-                .AddressList
+            return host?
+                .AddressList?
                 .FirstOrDefault(ip => ip.AddressFamily == AddressFamily.InterNetwork);
         }
     }

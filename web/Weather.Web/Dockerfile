@@ -1,7 +1,7 @@
-﻿FROM  mcr.microsoft.com/dotnet/aspnet:5.0-bullseye-slim AS base
+﻿FROM  mcr.microsoft.com/dotnet/aspnet:7.0-bullseye-slim AS base
 WORKDIR /app
 
-FROM mcr.microsoft.com/dotnet/sdk:5.0-bullseye-slim AS build
+FROM mcr.microsoft.com/dotnet/sdk:7.0-bullseye-slim AS build
 WORKDIR /src
 COPY ["web/Weather.Web/Weather.Web.csproj", "web/Weather.Web/"]
 

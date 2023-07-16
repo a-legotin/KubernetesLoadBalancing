@@ -5,23 +5,20 @@ using Microsoft.Extensions.Logging;
 namespace Weather.Web.Controllers
 {
     [ApiController]
-    [Route("instance/current")]
-    public class CurrentInstanceController : ControllerBase
+    [Route("api/[controller]/current")]
+    public class InstanceController : ControllerBase
     {
-        private readonly ILogger<CurrentInstanceController> _logger;
+        private readonly ILogger<InstanceController> _logger;
 
-        public CurrentInstanceController(ILogger<CurrentInstanceController> logger)
+        public InstanceController(ILogger<InstanceController> logger)
         {
             _logger = logger;
         }
 
         [HttpGet]
-        public InstanceInfo Get()
+        public InstanceInfo Get() => new InstanceInfo
         {
-            return new InstanceInfo
-            {
-                Address = NetworkUtils.GetLocalIPAddress()?.ToString()
-            };
-        }
+            Address = NetworkUtils.GetLocalIPAddress()?.ToString() ?? "unavailable"
+        };
     }
 }

@@ -1,18 +1,22 @@
-import React, {Component} from 'react';
-import {Route} from 'react-router';
-import {Layout} from './components/Layout';
-import {FetchData} from './components/FetchData';
-
-import './custom.css'
+import React, { Component } from 'react';
+import { Route, Routes } from 'react-router-dom';
+import AppRoutes from './AppRoutes';
+import { Layout } from './components/Layout';
+import './custom.css';
 
 export default class App extends Component {
-    static displayName = App.name;
+  static displayName = App.name;
 
-    render() {
-        return (
-            <Layout>
-                <Route exact path='/' component={FetchData}/>
-            </Layout>
-        );
-    }
+  render() {
+    return (
+      <Layout>
+        <Routes>
+          {AppRoutes.map((route, index) => {
+            const { element, ...rest } = route;
+            return <Route key={index} {...rest} element={element} />;
+          })}
+        </Routes>
+      </Layout>
+    );
+  }
 }
