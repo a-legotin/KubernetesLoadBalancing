@@ -17,13 +17,13 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: kldemo-customers-web
+  name: kldemo-web
   namespace: ezlab-load-balancing-demo
   labels:
     app: kldemo
 spec:
   type: ClusterIP
   selector:
-    app: kldemo-customers-web
+    app: kldemo-web
   ports:
     - port: 8080

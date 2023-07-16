@@ -1,8 +1,8 @@
 version: '3.4'
 
 services:
-  kldemo-customers-web:
-    image: kldemo-customers-web
+  kldemo-web:
+    image: kldemo-web
     build:
       context: .
       network: host
@@ -24,7 +24,7 @@ services:
     ports:
       - '8066:80'
     depends_on:
-      - kldemo-customers-web
+      - kldemo-web
     restart: always
     networks:
       - main-network
