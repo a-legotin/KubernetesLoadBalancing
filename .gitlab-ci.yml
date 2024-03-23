@@ -28,7 +28,7 @@ deploy:
   tags:
     - docker
   image: 
-     name: bitnami/kubectl:latest
+     name: bitnami/kubectl:1.29
      entrypoint: [""]
   environment:
         name: staging
