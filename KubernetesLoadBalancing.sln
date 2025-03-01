@@ -9,6 +9,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "infrastructure", "infrastru
 	ProjectSection(SolutionItems) = preProject
 		docker-compose.yml = docker-compose.yml
 		.gitlab-ci.yml = .gitlab-ci.yml
+		deploy\kl-demo-service-namespace.yaml = deploy\kl-demo-service-namespace.yaml
+		deploy\kl-demo-deployment.yaml = deploy\kl-demo-deployment.yaml
+		deploy\kl-demo-ingress.yaml = deploy\kl-demo-ingress.yaml
+		deploy\kl-demo-service.yaml = deploy\kl-demo-service.yaml
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "console", "console", "{DE4AB92A-5864-4C62-AA75-41761FEBF7FD}"
